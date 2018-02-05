@@ -1,0 +1,19 @@
+{
+    "organisation_name": "Organisation Name",
+    "project_slug": "{{ cookiecutter.organisation_name.lower()|replace(' ', '_')|replace('-', '_') }}",
+    "street": "Street",
+    "number": "Number",
+    "zip": "ZIP",
+    "city": "City",
+    "extra": "Address Extra",
+    "PC": "PC Number",
+    "IBAN": "IBAN",
+    "BIC": "BIC",
+    "NAME": "Bank Name",
+    "ESR": "ESR Number",
+    "info_email": "info@{{cookiecutter.project_slug}}.org",
+    "server_url": "www.{{cookiecutter.project_slug}}.org",
+    "admin_portal_name": "admin.{{cookiecutter.project_slug}}",
+    "admin_portal_url": "admin.{{cookiecutter.project_slug}}.org",
+    "share_price": "250"
+}
