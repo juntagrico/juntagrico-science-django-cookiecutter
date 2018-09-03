@@ -140,11 +140,26 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 MEDIA_ROOT = 'media'
 
-MEMBER_STRING = "Mitglied"
-MEMBERS_STRING = "Mitglieder"
-ASSIGNMENT_STRING = "Mitglied"
-ASSIGNMENTS_STRING = "Arbeitseinsätze"
+VOCABULARY = {
+    'member': 'Mitglied',
+    'member_pl' : 'Mitglieder',
+    'assignment' : 'Arbeitseinsatz',
+    'assignment_pl' : 'Arbeitseinsätze',
+    'share' : 'Anteilschein',
+    'share_pl' : 'Anteilscheine',
+    'subscription' : 'Abo',
+    'subscription_pl' : 'Abos',
+    'co_member' : 'Mitabonnent',
+    'co_member_pl' : 'Mitabonnenten',
+    'price' : 'Betriebsbeitrag',
+    'member_type' : 'Mitglied',
+    'member_type_pl' : 'Mitglieder',
+    'depot' : 'Depot',
+    'depot_pl' : 'Depots'
+}
 ORGANISATION_NAME = "{{cookiecutter.organisation_name}}"
+ORGANISATION_NAME_CONFIG = {"type" : "",
+    "gender" : ""}
 ORGANISATION_LONG_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_ADDRESS = {"name":"{{cookiecutter.organisation_name}}", 
             "street" : "{{cookiecutter.street}}",
@@ -162,21 +177,27 @@ INFO_EMAIL = "{{cookiecutter.info_email}}"
 SERVER_URL = "{{cookiecutter.server_url}}"
 ADMINPORTAL_NAME = "{{cookiecutter.admin_portal_name}}"
 ADMINPORTAL_SERVER_URL = "{{cookiecutter.admin_portal_url}}"
-BUSINESS_REGULATIONS = "/static/docs/business_regulations.pdf"
-BYLAWS = "/static/docs/bylaws.pdf"
+BUSINESS_REGULATIONS = ""
+BYLAWS = ""
+MAIL_TEMPLATE = "mails/email.html"
 STYLE_SHEET = "/static/css/personal.css"
 BOOTSTRAP = "/static/external/bootstrap-3.3.1/css/bootstrap.min.css"
 FAVICON = "/static/img/favicono.ico"
-FAQ_DOC = "/static/doc/fac.pdf"
-EXTRA_SUB_INFO = "/static/doc/extra_sub_info.pdf"
-ACTIVITY_AREA_INFO = "/static/doc/activity_area_info.pdf"
+FAQ_DOC = ""
+EXTRA_SUB_INFO = ""
+ACTIVITY_AREA_INFO = ""
 SHARE_PRICE = "{{cookiecutter.share_price}}"
+ENABLE_SHARES = True
+BASE_FEE = ""
+CURRENCY = "CHF"
+ASSIGNMENT_UNIT = "ENTITY"
 PROMOTED_JOB_TYPES = []
 PROMOTED_JOBS_AMOUNT = 2
 DEPOT_LIST_GENERATION_DAYS = [1,2,3,4,5,6,7]	
 BILLING = False
 BUSINESS_YEAR_START = {"day":1, "month":1}
 BUSINESS_YEAR_CANCELATION_MONTH = 10
+MEMBERSHIP_END_MONTH = 6
 IMAGES = {'status_100': '/static/img/status_100.png',
             'status_75': '/static/img/status_75.png',
             'status_50': '/static/img/status_50.png',
@@ -190,6 +211,7 @@ GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
 EMAILS = {
     'welcome': 'mails/welcome_mail.txt',
     'co_welcome': 'mails/welcome_added_mail.txt',
+    'co_added': 'mails/added_mail.txt',
     'password': 'mails/password_reset_mail.txt',
     'j_reminder': 'mails/job_reminder_mail.txt',
     'j_canceled': 'mails/job_canceled_mail.txt',
@@ -197,7 +219,10 @@ EMAILS = {
     'j_changed': 'mails/job_time_changed_mail.txt',
     'j_signup': 'mails/job_signup_mail.txt',
     'd_changed': 'mails/depot_changed_mail.txt',
+    's_created': 'mails/share_created_mail.txt',
+    'n_sub': 'mails/new_subscription.txt',
     's_canceled': 'mails/subscription_canceled_mail.txt',
+    'm_canceled': 'mails/membership_canceled_mail.txt',
     'b_share': 'mails/bill_share.txt',
     'b_sub': 'mails/bill_sub.txt',
     'b_esub': 'mails/bill_extrasub.txt'
