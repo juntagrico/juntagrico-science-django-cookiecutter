@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'juntagrico',
     'impersonate',
+    'crispy_forms',
     '{{cookiecutter.project_slug}}',
 ]
 
@@ -139,6 +140,14 @@ ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 MEDIA_ROOT = 'media'
 
+"""
+     Crispy Settings
+"""
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+"""
+     juntagrico Settings
+"""
 VOCABULARY = {
     'member': 'Mitglied',
     'member_pl' : 'Mitglieder',
