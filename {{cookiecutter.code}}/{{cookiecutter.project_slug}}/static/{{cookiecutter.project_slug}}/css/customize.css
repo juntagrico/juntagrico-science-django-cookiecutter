@@ -1,5 +1,5 @@
 .juntagrico-logo {
-    background: url(/static/{{cookiecutter.project_slug}}/img/logo.png) no-repeat center center;
+    background: url(/static/{{cookiecutter.project_slug}}/img/logo.png) no-repeat 0 0;
     background-size: contain;
     display: inline-block;
     width: 580px;
