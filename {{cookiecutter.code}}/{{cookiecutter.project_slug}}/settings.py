@@ -161,9 +161,9 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
             "BIC" : "{{cookiecutter.BIC}}",
             "NAME" : "{{cookiecutter.NAME}}",
             "ESR" : "{{cookiecutter.ESR}}"}
+SHARE_PRICE = "{{cookiecutter.share_price}}"
+
 INFO_EMAIL = "{{cookiecutter.info_email}}"
 SERVER_URL = "{{cookiecutter.server_url}}"
 ADMINPORTAL_NAME = "{{cookiecutter.admin_portal_name}}"
 ADMINPORTAL_SERVER_URL = "{{cookiecutter.admin_portal_url}}"
-SHARE_PRICE = "{{cookiecutter.share_price}}"
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
