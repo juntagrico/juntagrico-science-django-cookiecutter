@@ -168,4 +168,3 @@ SERVER_URL = "{{cookiecutter.server_url}}"
 ADMINPORTAL_NAME = "{{cookiecutter.admin_portal_name}}"
 ADMINPORTAL_SERVER_URL = "{{cookiecutter.admin_portal_url}}"
 STYLE_SHEET = "/static/{{cookiecutter.project_slug}}/css/customize.css"
-GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
