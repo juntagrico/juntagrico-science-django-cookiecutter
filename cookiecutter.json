@@ -12,7 +12,6 @@
     "NAME": "Bank Name",
     "ESR": "ESR Number",
     "info_email": "info@{{cookiecutter.project_slug}}.org",
-    "admin_portal_name": "admin.{{cookiecutter.project_slug}}",
     "share_price": "250",
     "code": "code"
 }
