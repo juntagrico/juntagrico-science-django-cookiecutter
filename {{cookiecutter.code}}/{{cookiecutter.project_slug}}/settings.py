@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
 
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
 
-ALLOWED_HOSTS = ['{{cookiecutter.admin_portal_url}}','{{cookiecutter.project_slug}}.juntagrico.science', 'localhost',]
+ALLOWED_HOSTS = ['{{cookiecutter.project_slug}}.juntagrico.science', 'localhost',]
 
 
 # Application definition
