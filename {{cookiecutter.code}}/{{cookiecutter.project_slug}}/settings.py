@@ -167,6 +167,4 @@ SHARE_PRICE = "{{cookiecutter.share_price}}"
 
 INFO_EMAIL = "{{cookiecutter.info_email}}"
 SERVER_URL = "{{cookiecutter.server_url}}"
-ADMINPORTAL_NAME = "{{cookiecutter.admin_portal_name}}"
-ADMINPORTAL_SERVER_URL = "{{cookiecutter.admin_portal_url}}"
 STYLE_SHEET = "/static/{{cookiecutter.project_slug}}/css/customize.css"
