@@ -170,5 +170,6 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
 SHARE_PRICE = "{{cookiecutter.share_price}}"
 
 INFO_EMAIL = "{{cookiecutter.info_email}}"
+DEFAULT_FROM_EMAIL = "{{cookiecutter.info_email}}"
 SERVER_URL = "{{cookiecutter.server_url}}"
 STYLES = {'static': ['/static/demo/css/customize.css']}
