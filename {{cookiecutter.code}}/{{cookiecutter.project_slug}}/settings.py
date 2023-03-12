@@ -171,4 +171,4 @@ SHARE_PRICE = "{{cookiecutter.share_price}}"
 
 INFO_EMAIL = "{{cookiecutter.info_email}}"
 SERVER_URL = "{{cookiecutter.server_url}}"
-STYLES = {'static': ['/static/demo/css/customize.css']}
+STYLES = {'static': ['{{cookiecutter.project_slug}}/css/customize.css']}
