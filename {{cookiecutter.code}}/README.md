@@ -1,4 +1,4 @@
-Juntagrico Heroku Template for cookiecutter
+Juntagrico Template for cookiecutter
 ===========
 
 This template sets up a project to be used with juntagrico.science as hosting.
@@ -79,13 +79,3 @@ More complex
 ### Run the server
 
     python -m manage runserver
-    
-#Heroku
-
-you have to login to a heroku bash and setup the db and create the admin user as desbribed in the UNIX section
-    
-    
-
-
-
-
