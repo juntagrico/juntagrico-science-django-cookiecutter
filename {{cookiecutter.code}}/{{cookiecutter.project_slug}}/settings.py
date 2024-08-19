@@ -30,11 +30,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    '{{cookiecutter.project_slug}}',
     'juntagrico',
+    'fontawesomefree',
+    'import_export',
     'impersonate',
     'crispy_forms',
     'adminsortable2',
-    '{{cookiecutter.project_slug}}',
     'polymorphic',
 ]
 
@@ -126,8 +128,14 @@ MEDIA_ROOT = 'media/'
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    },
+}
 
 # django.contrib.sites Settings
 
@@ -141,7 +149,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend'
 )
 
-LOGIN_REDIRECT_URL = "/my/home"
+LOGIN_REDIRECT_URL = "/"
 
 
 # django.contrib.sessions Settings
@@ -159,6 +167,11 @@ IMPERSONATE = {
 # crispy_form Settings
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# import_export Settings
+
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 
 # juntagrico Settings
@@ -192,6 +205,11 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
             "ESR" : "{{cookiecutter.ESR}}"}
 SHARE_PRICE = "{{cookiecutter.share_price}}"
 
-INFO_EMAIL = "{{cookiecutter.info_email}}"
-SERVER_URL = "{{cookiecutter.server_url}}"
+CONTACTS = {
+    "general": "{{cookiecutter.info_email}}"
+}
+ORGANISATION_WEBSITE = {
+    'name': "{{cookiecutter.server_url}}",
+    'url': "https://{{cookiecutter.server_url}}"
+}
 STYLES = {'static': ['{{cookiecutter.project_slug}}/css/customize.css']}
