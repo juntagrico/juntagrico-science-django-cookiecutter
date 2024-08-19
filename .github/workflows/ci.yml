@@ -1,0 +1,30 @@
+# This workflow will cookiecut the code and roughly check if the result works.
+
+name: ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main, release/** ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      JUNTAGRICO_SECRET_KEY: fake
+
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - name: run cookiecutter
+      run: |
+        pip install cookiecutter
+        cookiecutter . --no-input
+    - name: test run app
+      run: |
+        cd code
+        pip install -r requirements.txt
+        python -m manage test juntagrico.tests.test_profile
