@@ -6,5 +6,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('impersonate/', include('impersonate.urls')),
     path('', include('juntagrico.urls')),
-    path('', juntagrico.views.home),
 ]
