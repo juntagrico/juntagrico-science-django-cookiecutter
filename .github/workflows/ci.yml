@@ -27,4 +27,5 @@ jobs:
       run: |
         cd code
         pip install -r requirements.txt
+        python -m manage collectstatic
         python -m manage test juntagrico.tests.test_profile
