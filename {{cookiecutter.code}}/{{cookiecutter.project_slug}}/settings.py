@@ -3,11 +3,10 @@ Django settings for {{cookiecutter.project_slug}} project.
 """
 
 import os
+from pathlib import Path
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
@@ -41,17 +40,6 @@ INSTALLED_APPS = [
 
 ROOT_URLCONF = '{{cookiecutter.project_slug}}.urls'
 
-DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'), 
-        'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','{{cookiecutter.project_slug}}.db'), 
-        'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'), #''junatagrico', # The following settings are not used with sqlite3:
-        'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'), #''junatagrico',
-        'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
-    }
-}
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -75,26 +63,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = '{{cookiecutter.project_slug}}.wsgi.application'
 
-
-LANGUAGE_CODE = 'de'
-
-SITE_ID = 1
-
-# If you set this to False, Django will make some optimizations so as not
-# to load the internationalization machinery.
-USE_I18N = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
-
-DATE_INPUT_FORMATS =['%d.%m.%Y',]
-
-AUTHENTICATION_BACKENDS = (
-    'juntagrico.util.auth.AuthenticateWithEmail',
-    'django.contrib.auth.backends.ModelBackend'
-)
-
+# HTTP
 
 MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
@@ -104,19 +73,98 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
     'django.contrib.sites.middleware.CurrentSiteMiddleware'
-    
 ]
+
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'), 
+        'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','{{cookiecutter.project_slug}}.db'), 
+        'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'), #''junatagrico', # The following settings are not used with sqlite3:
+        'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'), #''junatagrico',
+        'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
+    }
+}
+
+# Email
 
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('JUNTAGRICO_EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('JUNTAGRICO_EMAIL_PASSWORD')
-EMAIL_PORT = int(os.environ.get('JUNTAGRICO_EMAIL_PORT', '25' ))
+EMAIL_PORT = int(os.environ.get('JUNTAGRICO_EMAIL_PORT', '25'))
 EMAIL_USE_TLS = os.environ.get('JUNTAGRICO_EMAIL_TLS', 'False')=='True'
 EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 
+# Internationalization
+# https://docs.djangoproject.com/en/4.2/topics/i18n/
+
+LANGUAGE_CODE = 'de'
+
+TIME_ZONE = 'Europe/Zurich'
+
+USE_I18N = True
+
+USE_TZ = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale.
+USE_L10N = True
+
+DATE_INPUT_FORMATS =['%d.%m.%Y']
+
+# File Uploads
+
+MEDIA_ROOT = 'media/'
+
+# Static files (CSS, JavaScript, Images)
+# django.contrib.staticfiles
+# https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+
+# django.contrib.sites Settings
+
+SITE_ID = 1
+
+
+# django.contrib.auth Settings
+
+AUTHENTICATION_BACKENDS = (
+    'juntagrico.util.auth.AuthenticateWithEmail',
+    'django.contrib.auth.backends.ModelBackend'
+)
+
+LOGIN_REDIRECT_URL = "/my/home"
+
+
+# django.contrib.sessions Settings
+
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
+
+# impersonate Settings
+
+IMPERSONATE = {
+    'REDIRECT_URL': '/my/profile',
+}
+
+
+# crispy_form Settings
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+# juntagrico Settings
+
 WHITELIST_EMAILS = []
+
 
 def whitelist_email_from_env(var_env_name):
     email = os.environ.get(var_env_name)
@@ -128,34 +176,7 @@ if DEBUG is True:
     for key in os.environ.keys():
         if key.startswith("JUNTAGRICO_EMAIL_WHITELISTED"):
             whitelist_email_from_env(key)
-            
 
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
-
-IMPERSONATE = {
-    'REDIRECT_URL': '/my/profile',
-}
-
-LOGIN_REDIRECT_URL = "/my/home"
-
-"""
-    File & Storage Settings
-"""
-ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
-
-MEDIA_ROOT = 'media'
-
-"""
-     Crispy Settings
-"""
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-"""
-     juntagrico Settings
-"""
 ORGANISATION_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_LONG_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_ADDRESS = {"name":"{{cookiecutter.organisation_name}}", 
