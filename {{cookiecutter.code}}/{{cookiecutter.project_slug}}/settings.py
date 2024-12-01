@@ -217,6 +217,7 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
             "BIC" : "{{cookiecutter.BIC}}",
             "NAME" : "{{cookiecutter.NAME}}",
             "ESR" : "{{cookiecutter.ESR}}"}
+ENABLE_SHARES = True
 SHARE_PRICE = "{{cookiecutter.share_price}}"
 
 CONTACTS = {
