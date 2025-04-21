@@ -57,6 +57,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
+                'juntagrico.context_processors.vocabulary',
             ],
             'debug' : DEBUG,
         },
@@ -104,18 +105,14 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = 'de'
-
-TIME_ZONE = 'Europe/Zurich'
-
 USE_I18N = True
-
-USE_TZ = True
-
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale.
 USE_L10N = True
-
 DATE_INPUT_FORMATS =['%d.%m.%Y']
+
+TIME_ZONE = 'Europe/Zurich'
+USE_TZ = True
 
 # File Uploads
 
