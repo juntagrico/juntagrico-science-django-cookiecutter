@@ -66,7 +66,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'APP_DIRS': True,
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
@@ -77,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.tz',
                 'django.template.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
+                'juntagrico.context_processors.vocabulary',
             ],
             'debug' : DEBUG,
         },
@@ -104,10 +104,10 @@ DATABASES = {
     'default': {
         'ENGINE': os.environ.get('JUNTAGRICO_DATABASE_ENGINE','django.db.backends.sqlite3'), 
         'NAME': os.environ.get('JUNTAGRICO_DATABASE_NAME','{{cookiecutter.project_slug}}.db'), 
-        'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'), #''junatagrico', # The following settings are not used with sqlite3:
-        'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'), #''junatagrico',
-        'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST'), #'localhost', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False), #''', # Set to empty string for default.
+        'USER': os.environ.get('JUNTAGRICO_DATABASE_USER'),
+        'PASSWORD': os.environ.get('JUNTAGRICO_DATABASE_PASSWORD'),
+        'HOST': os.environ.get('JUNTAGRICO_DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('JUNTAGRICO_DATABASE_PORT', False),
     }
 }
 
@@ -123,23 +123,13 @@ EMAIL_USE_SSL = os.environ.get('JUNTAGRICO_EMAIL_SSL', 'False')=='True'
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'de'
-
-TIME_ZONE = 'Europe/Zurich'
-
 USE_I18N = True
-
-USE_TZ = True
-
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
 USE_L10N = True
-
+LANGUAGE_CODE = 'de'
 DATE_INPUT_FORMATS =['%d.%m.%Y']
 
-# File Uploads
-
-MEDIA_ROOT = 'media/'
+TIME_ZONE = 'Europe/Zurich'
+USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # django.contrib.staticfiles
@@ -196,20 +186,6 @@ IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 # juntagrico Settings
 
-WHITELIST_EMAILS = []
-
-
-def whitelist_email_from_env(var_env_name):
-    email = os.environ.get(var_env_name)
-    if email:
-        WHITELIST_EMAILS.append(email.replace('@gmail.com', '(\+\S+)?@gmail.com'))
-
-
-if DEBUG is True:
-    for key in os.environ.keys():
-        if key.startswith("JUNTAGRICO_EMAIL_WHITELISTED"):
-            whitelist_email_from_env(key)
-
 ORGANISATION_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_LONG_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_ADDRESS = {"name":"{{cookiecutter.organisation_name}}", 
@@ -223,14 +199,16 @@ ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
             "BIC" : "{{cookiecutter.BIC}}",
             "NAME" : "{{cookiecutter.NAME}}",
             "ESR" : "{{cookiecutter.ESR}}"}
-ENABLE_SHARES = True
-SHARE_PRICE = "{{cookiecutter.share_price}}"
-
-CONTACTS = {
-    "general": "{{cookiecutter.info_email}}"
-}
 ORGANISATION_WEBSITE = {
     'name': "{{cookiecutter.server_url}}",
     'url': "https://{{cookiecutter.server_url}}"
 }
+
+CONTACTS = {
+    "general": "{{cookiecutter.info_email}}"
+}
+
+ENABLE_SHARES = True
+SHARE_PRICE = "{{cookiecutter.share_price}}"
+
 STYLES = {'static': ['{{cookiecutter.project_slug}}/css/customize.css']}
