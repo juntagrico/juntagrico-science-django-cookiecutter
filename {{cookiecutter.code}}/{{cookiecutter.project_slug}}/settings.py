@@ -5,6 +5,8 @@ Django settings for {{cookiecutter.project_slug}} project.
 import os
 from pathlib import Path
 
+from juntagrico import defaults
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -13,12 +15,33 @@ SECRET_KEY = os.environ.get('JUNTAGRICO_SECRET_KEY')
 
 DEBUG = os.environ.get("JUNTAGRICO_DEBUG", 'False')=='True'
 
-ALLOWED_HOSTS = ['{{cookiecutter.project_slug}}.juntagrico.science', 'localhost',]
+if not DEBUG:
+    ALLOWED_HOSTS = ['{{cookiecutter.project_slug}}.juntagrico.science']
 
 ADMINS = (
     ('Admin', os.environ.get('JUNTAGRICO_ADMIN_EMAIL')),
 )
 MANAGERS = ADMINS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {'format': '[%(asctime)s] %(levelname)s %(message)s'}
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        }
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'WARNING',
+        },
+    },
+}
 
 # Application definition
 
@@ -29,15 +52,17 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.admin',
+    'juntagrico.apps.JuntagricoAdminConfig',
     '{{cookiecutter.project_slug}}',
     'juntagrico',
-    'fontawesomefree',
     'import_export',
     'impersonate',
     'crispy_forms',
+    'crispy_bootstrap4',
     'adminsortable2',
     'polymorphic',
+    'django_select2',
+    'djrichtextfield',
 ]
 
 ROOT_URLCONF = '{{cookiecutter.project_slug}}.urls'
@@ -93,6 +118,8 @@ DATABASES = {
 
 # Email
 
+EMAIL_BACKEND='juntagrico.backends.email.EmailBackend'
+
 EMAIL_HOST = os.environ.get('JUNTAGRICO_EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('JUNTAGRICO_EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('JUNTAGRICO_EMAIL_PASSWORD')
@@ -142,11 +169,6 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = "/"
 
 
-# django.contrib.sessions Settings
-
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
-
-
 # impersonate Settings
 
 IMPERSONATE = {
@@ -164,21 +186,30 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'view'
 
 
+# Rich text editor settings
+
+DJRICHTEXTFIELD_CONFIG = defaults.richtextfield_config(LANGUAGE_CODE)
+
+
 # juntagrico Settings
 
 ORGANISATION_NAME = "{{cookiecutter.organisation_name}}"
 ORGANISATION_LONG_NAME = "{{cookiecutter.organisation_name}}"
-ORGANISATION_ADDRESS = {"name":"{{cookiecutter.organisation_name}}", 
-            "street" : "{{cookiecutter.street}}",
-            "number" : "{{cookiecutter.number}}",
-            "zip" : "{{cookiecutter.zip}}",
-            "city" : "{{cookiecutter.city}}",
-            "extra" : "{{cookiecutter.extra}}"}
-ORGANISATION_BANK_CONNECTION = {"PC" : "{{cookiecutter.PC}}",
-            "IBAN" : "{{cookiecutter.IBAN}}",
-            "BIC" : "{{cookiecutter.BIC}}",
-            "NAME" : "{{cookiecutter.NAME}}",
-            "ESR" : "{{cookiecutter.ESR}}"}
+ORGANISATION_ADDRESS = {
+    "name":"{{cookiecutter.organisation_name}}",
+    "street" : "{{cookiecutter.street}}",
+    "number" : "{{cookiecutter.number}}",
+    "zip" : "{{cookiecutter.zip}}",
+    "city" : "{{cookiecutter.city}}",
+    "extra" : "{{cookiecutter.extra}}"
+}
+ORGANISATION_BANK_CONNECTION = {
+    "PC" : "{{cookiecutter.PC}}",
+    "IBAN" : "{{cookiecutter.IBAN}}",
+    "BIC" : "{{cookiecutter.BIC}}",
+    "NAME" : "{{cookiecutter.NAME}}",
+    "ESR" : "{{cookiecutter.ESR}}"
+}
 ORGANISATION_WEBSITE = {
     'name': "{{cookiecutter.server_url}}",
     'url': "https://{{cookiecutter.server_url}}"
